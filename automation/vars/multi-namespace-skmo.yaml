@@ -114,6 +114,10 @@ vas:
             type: playbook
             source: "../../playbooks/skmo/ensure-central-ca-bundle.yaml"
             inventory: "${HOME}/ci-framework-data/artifacts/zuul_inventory.yml"
+          - name: Configure barbican-keystone-listener transport URL for leaf region
+            type: playbook
+            source: "../../playbooks/skmo/configure-leaf-listener.yaml"
+            inventory: "${HOME}/ci-framework-data/artifacts/zuul_inventory.yml"
 
       - name: edpm-nodeset    # stage 7
         path: examples/va/multi-namespace/edpm/nodeset
