@@ -10,3 +10,16 @@ patches:
       kind: ConfigMap
       name: service-values
     path: service-values.yaml
+
+replacements:
+  - source:
+      kind: ConfigMap
+      name: service-values
+      fieldPath: data.barbican.barbicanKeystoneListener.customServiceConfig
+    targets:
+      - select:
+          kind: OpenStackControlPlane
+        fieldPaths:
+          - spec.barbican.template.barbicanKeystoneListener.customServiceConfig
+        options:
+          create: true

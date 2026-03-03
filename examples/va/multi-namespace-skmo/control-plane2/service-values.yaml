@@ -11,6 +11,11 @@ data:
     caBundleSecretName: custom-ca-certs
 
   # --- SKMO-specific overrides ---
+  barbican:
+    barbicanKeystoneListener:
+      customServiceConfig: |
+        [keystone_notifications]
+        pool_name = barbican-listener-regionTwo
   horizon:
     enabled: false
   keystone:

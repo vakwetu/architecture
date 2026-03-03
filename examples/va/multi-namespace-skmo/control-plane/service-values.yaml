@@ -8,3 +8,8 @@ metadata:
 data:
   tls:
     caBundleSecretName: custom-ca-certs
+  barbican:
+    barbicanKeystoneListener:
+      customServiceConfig: |
+        [keystone_notifications]
+        pool_name = barbican-listener-regionOne
