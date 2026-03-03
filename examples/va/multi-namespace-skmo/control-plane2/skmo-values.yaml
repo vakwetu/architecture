@@ -13,8 +13,8 @@ data:
   leafAdminProject: admin
   leafAdminPasswordKey: AdminPassword
   # Central Keystone endpoints (use public endpoint for both)
-  keystoneInternalURL: https://keystone-public.openstack.svc:5000
-  keystonePublicURL: https://keystone-public.openstack.svc:5000
+  keystoneInternalURL: https://keystone-public-openstack.apps.ocp.openstack.lab
+  keystonePublicURL: https://keystone-public-openstack.apps.ocp.openstack.lab
   # CA bundle secrets
   # Leaf region secret (must include central Keystone CA)
   leafCaBundleSecretName: custom-ca-certs
