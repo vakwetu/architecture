@@ -71,13 +71,14 @@ vas:
       - name: control-plane    # stage 5
         path: examples/va/multi-namespace/control-plane
         wait_conditions:
-          # Central Keystone must be ready before the leaf region
+          # Just confirm the central OSCP CR exists in the API server.
+          # The pre_stage_run of stage 6 (prepare-leaf.yaml) will use
+          # Ansible retry logic to wait for Keystone and openstackclient
+          # readiness before proceeding, allowing parallel deployment.
           - >-
-            oc -n openstack wait keystoneapi --all --for condition=Ready
-            --timeout=60m
-          - >-
-            oc -n openstack wait pod openstackclient --for condition=Ready
-            --timeout=10m
+            oc -n openstack wait osctlplane controlplane
+            --for jsonpath='{.metadata.name}'=controlplane
+            --timeout=5m
         values:
           - name: service-values
             src_file: service-values.yaml
