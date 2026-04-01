@@ -128,6 +128,14 @@ vas:
             src_file: ../../multi-namespace/control-plane2/networking/nncp/values.yaml
         build_output: ../control-plane2.yaml
         post_stage_run:
+          - name: Update container images for openstack2 namespace
+            type: playbook
+            source: "../../playbooks/multi-namespace/ns2_update_containers.yaml"
+            inventory: "${HOME}/ci-framework-data/artifacts/zuul_inventory.yml"
+            extra_vars:
+              cifmw_update_containers_namespace: openstack2
+              cifmw_update_containers_metadata: controlplane
+              cifmw_update_containers: "true"
           - name: Update central CA bundle with leaf region CAs and wait for reconciliation
             type: playbook
             source: "skmo/update-central-ca-bundle.yaml"
