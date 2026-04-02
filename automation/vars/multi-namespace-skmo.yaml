@@ -119,6 +119,14 @@ vas:
               cifmw_update_containers_namespace: openstack2
               cifmw_update_containers_metadata: controlplane
               cifmw_update_containers: "true"
+          - name: Install Skupper operator
+            type: playbook
+            source: "skmo/skupper-install.yaml"
+            inventory: "${HOME}/ci-framework-data/artifacts/zuul_inventory.yml"
+          - name: Create and link Skupper Sites
+            type: playbook
+            source: "skmo/skupper-sites.yaml"
+            inventory: "${HOME}/ci-framework-data/artifacts/zuul_inventory.yml"
           - name: Prepare SKMO leaf prerequisites in regionZero
             type: playbook
             source: "skmo/prepare-leaf.yaml"
@@ -143,7 +151,15 @@ vas:
             type: playbook
             source: "skmo/update-central-ca-bundle.yaml"
             inventory: "${HOME}/ci-framework-data/artifacts/zuul_inventory.yml"
-          - name: Configure barbican-keystone-listener transport URL for leaf region
+          - name: Create Skupper Connector for central RabbitMQ
+            type: playbook
+            source: "skmo/skupper-connector.yaml"
+            inventory: "${HOME}/ci-framework-data/artifacts/zuul_inventory.yml"
+          - name: Create Skupper Listener for RabbitMQ in leaf namespace
+            type: playbook
+            source: "skmo/skupper-listener.yaml"
+            inventory: "${HOME}/ci-framework-data/artifacts/zuul_inventory.yml"
+          - name: Configure barbican-keystone-listener to use Skupper
             type: playbook
             source: "skmo/configure-leaf-listener.yaml"
             inventory: "${HOME}/ci-framework-data/artifacts/zuul_inventory.yml"
